@@ -6,17 +6,19 @@ import (
 )
 
 type Config struct {
-	LogConfig       json_util.RawMessage `json:"log"`
-	RouterConfig    json_util.RawMessage `json:"routing"`
-	DNSConfig       json_util.RawMessage `json:"dns"`
-	InboundConfigs  []InboundConfig      `json:"inbounds"`
-	OutboundConfigs json_util.RawMessage `json:"outbounds"`
-	Transport       json_util.RawMessage `json:"transport"`
-	Policy          json_util.RawMessage `json:"policy"`
-	API             json_util.RawMessage `json:"api"`
-	Stats           json_util.RawMessage `json:"stats"`
-	Reverse         json_util.RawMessage `json:"reverse"`
-	FakeDNS         json_util.RawMessage `json:"fakeDns"`
+	LogConfig        json_util.RawMessage `json:"log"`
+	RouterConfig     json_util.RawMessage `json:"routing"`
+	DNSConfig        json_util.RawMessage `json:"dns"`
+	InboundConfigs   []InboundConfig      `json:"inbounds"`
+	OutboundConfigs  json_util.RawMessage `json:"outbounds"`
+	Transport        json_util.RawMessage `json:"transport"`
+	Policy           json_util.RawMessage `json:"policy"`
+	API              json_util.RawMessage `json:"api"`
+	Stats            json_util.RawMessage `json:"stats"`
+	Reverse          json_util.RawMessage `json:"reverse"`
+	FakeDNS          json_util.RawMessage `json:"fakeDns"`
+	Observatory      json_util.RawMessage `json:"observatory"`
+	BurstObservatory json_util.RawMessage `json:"burstObservatory"`
 }
 
 func (c *Config) Equals(other *Config) bool {
@@ -56,6 +58,12 @@ func (c *Config) Equals(other *Config) bool {
 		return false
 	}
 	if !bytes.Equal(c.FakeDNS, other.FakeDNS) {
+		return false
+	}
+	if !bytes.Equal(c.Observatory, other.Observatory) {
+		return false
+	}
+	if !bytes.Equal(c.BurstObservatory, other.BurstObservatory) {
 		return false
 	}
 	return true
